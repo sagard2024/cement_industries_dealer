@@ -1,0 +1,1 @@
+const appVersionCode = '1';

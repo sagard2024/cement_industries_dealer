@@ -1,0 +1,23 @@
+import 'package:flutter/material.dart';
+
+Color whiteColor = const Color(0xFFFFFFFF);
+Color backgroundColor = const Color(0xFFFFFFFF);
+Color blackColor = const Color(0xFF000000);
+Color textColor = const Color(0xFF000000);
+Color themeColor = const Color(0xFF2196F3);
+Color cardBackColor = const Color(0xFFF5F9FF);
+Color product1Color = const Color(0xFF4CAF50);
+Color product2Color = const Color(0xFF2196F3);
+Color product3Color = const Color(0xFFFFC107);
+Color product4Color = const Color(0xFFF44336);
+Color product5Color = const Color(0xFF9C27B0);
+Color product6Color = const Color(0xFF00BCD4);
+Color product7Color = const Color(0xFFFF9800);
+Color product8Color = const Color(0xFF3F51B5);
+Color product9Color = const Color(0xFF009688);
+Color product10Color = const Color(0xFF795548);
+Color product11Color = const Color(0xFF607D8B);
+Color product12Color = const Color(0xFFE91E63);
+Color product13Color = const Color(0xFF8BC34A);
+Color product14Color = const Color(0xFFCDDC39);
+const Color dividerColor = Color(0xFFCCCFD2);
