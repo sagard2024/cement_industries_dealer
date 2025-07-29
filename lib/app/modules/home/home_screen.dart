@@ -59,12 +59,12 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       appBar: AppBar(
         toolbarHeight: 70,
         title: Text("Welcome Sukwinder", style: TextStyle(color: textColor, fontSize: 18, fontWeight: FontWeight.w600)),
-        centerTitle: true,
         leading: Icon(Icons.menu).onClick(() {
           scaffoldKey.currentState?.openDrawer();
         }),
         backgroundColor: backgroundColor,
-        actions: [Column(
+        actions: [
+          Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -84,7 +84,13 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.w600, height: 1),
             ),
           ],
-        ), horizontalSpace(10)],
+        ),
+          horizontalSpace(8),
+          IconButton(onPressed: (){
+            Get.toNamed(Routes.NOTIFICATIONS_SCREEN);
+          }, icon: Icon(Icons.notifications, color: Colors.blueAccent,)),
+
+          horizontalSpace(10)],
       ),
       drawer: Drawer(
         backgroundColor: cardBackColor,
@@ -177,6 +183,38 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               Get.toNamed(Routes.ACCOUNT_STATEMENT_SCREEN);
             }),
             verticalSpace(20),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Row(
+                children: [
+                  Icon(Icons.create, size: 28),
+                  horizontalSpace(15),
+                  Text("Create Case", style: TextStyle(color: textColor, fontSize: 18, fontWeight: FontWeight.w600)),
+                ],
+              ),
+            ).onClick(() {
+              Get.back();
+              Get.toNamed(Routes.CREATE_CASE_SCREEN);
+            }),
+            verticalSpace(20),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Row(
+                children: [
+                  Icon(Icons.list, size: 28),
+                  horizontalSpace(15),
+                  Text("View Cases", style: TextStyle(color: textColor, fontSize: 18, fontWeight: FontWeight.w600)),
+                ],
+              ),
+            ).onClick(() {
+              Get.back();
+              Get.toNamed(Routes.CASE_LIST_SCREEN);
+            }),
+            verticalSpace(20),
+
+
             Divider(),
             verticalSpace(15),
             Padding(

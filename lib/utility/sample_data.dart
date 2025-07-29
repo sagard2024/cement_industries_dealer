@@ -1,5 +1,6 @@
 import 'package:cement_industries_dealer/app/modules/home/home_screen.dart';
 import 'package:cement_industries_dealer/generated/locales.dart';
+import 'package:flutter/material.dart';
 
 List<Map<String, dynamic>> upcomingEvent = [
   {
@@ -193,10 +194,217 @@ List<Map<String, dynamic>> productsList = [
   {"name": "Gaming Mouse", "brand": "Logitech", "points": 1300, "imageUrl": LocaleKeys.iv_gaming_mouse},
 ];
 
+List<Map<String, dynamic>> cases = [
+  {
+    'name': 'Shree Balaji Cement Traders',
+    'contact': '9876543210',
+    'product': 'OPC 43 Grade',
+    'casetype': 'Quality Issue',
+    'date': '2023-06-01',
+    'status': 'new',
+  },
+  {
+    'name': 'Vijay Construction Supplies',
+    'contact': '9876543210',
+    'product': 'PPC',
+    'casetype': 'Delivery Delay',
+    'date': '2023-06-02',
+    'status': 'open',
+  },
+  {
+    'name': 'Mahadev Cement Depot',
+    'contact': '9876543210',
+    'product': 'PSC',
+    'casetype': 'Short Supply',
+    'date': '2023-06-03',
+    'status': 'in progress',
+  },
+  {
+    'name': 'Rajeshwari Building Materials',
+    'contact': '9876543210',
+    'product': 'OPC 43 Grade',
+    'casetype': 'Billing Discrepancy',
+    'date': '2023-06-04',
+    'status': 'resolved',
+  },
+  {
+    'name': 'Anand Cement & Hardware',
+    'contact': '9876543210',
+    'product': 'OPC 43 Grade',
+    'casetype': 'Quality Issue',
+    'date': '2023-06-01',
+    'status': 'fixed',
+  },
+  {
+    'name': 'Saraswati Cement Distributors',
+    'contact': '9876543210',
+    'product': 'PPC',
+    'casetype': 'Delivery Delay',
+    'date': '2023-06-02',
+    'status': 'new',
+  },
+  {
+    'name': 'Om Shakti Traders',
+    'contact': '9876543210',
+    'product': 'PSC',
+    'casetype': 'Short Supply',
+    'date': '2023-06-03',
+    'status': 'open',
+  },
+  {
+    'name': 'Rajeshwari Building Materials',
+    'contact': '9876543210',
+    'product': 'OPC 43 Grade',
+    'casetype': 'Billing Discrepancy',
+    'date': '2023-06-04',
+    'status': 'in progress',
+  },
+];
+
+List<Map<String, dynamic>> allProducts = [
+  {
+    'name': 'OPC 43 Grade',
+    'brand': 'Polycab',
+    'color': 'White',
+    'length': '0.5',
+    'image':
+    'https://vashiisl.com/cdn/shop/products/0.5PX1CWHIFR100-3_472x472.jpg',
+    'quantity': '3',
+  },
+  {
+    'name': 'PPC',
+    'brand': 'Finolex',
+    'color': 'Black',
+    'length': '0.5',
+    'image':
+    'https://vashiisl.com/cdn/shop/products/1PX1CBLKFRLS100-2_473x473.jpg',
+    'quantity': '2',
+  },
+  {
+    'name': 'PSC',
+    'brand': 'Polycab',
+    'color': 'Red',
+    'length': '2.5',
+    'image':
+    'https://vashiisl.com/cdn/shop/products/2.5PX1CREDFRLS100-2_500x500.jpg',
+    'quantity': '5',
+  },
+];
+
+List<String> caseTypes = [
+  'Quality Issue',
+  'Delivery Delay',
+  'Short Supply',
+  'Billing Discrepancy',
+  'Packaging Issue',
+  'Leakage',
+  'Spillage',
+  'Others',
+];
+
+Color getStatusColor(String status) {
+  switch (status.toLowerCase()) {
+    case 'new':
+      return Colors.red;
+    case 'open':
+      return Colors.orange;
+    case 'in progress':
+      return Colors.orangeAccent;
+    case 'resolved':
+      return Colors.green;
+    case 'fixed':
+      return Colors.teal;
+    default:
+      return Colors.grey;
+  }
+}
+
+Color getOrderStatusColor(String status) {
+  switch (status.toLowerCase()) {
+    case 'approved':
+      return Colors.blue;
+    case 'pending approval':
+      return Colors.orange;
+    case 'dispatched':
+      return Colors.purple;
+    case 'delivered':
+      return Colors.green;
+    case 'cancelled':
+      return Colors.red;
+    default:
+      return Colors.grey;
+  }
+}
+
+List<Map<String, dynamic>> orders = [
+  {
+    'orderNumber': 'ORD-00123',
+    'orderDate': '25-Jul-2025',
+    'dealerName': 'Shree Balaji Cement',
+    'productType': 'OPC 43 Grade',
+    'quantity': '20',
+    'orderStatus': 'Approved',
+    'vehicleType': 'Full Truck Load',
+    'preferredSource': 'Plant - Nimbahera',
+    'expectedDeliveryDate': '30-Jul-2025',
+    'orderValue': '₹1,80,000',
+  },
+  {
+    'orderNumber': 'ORD-00124',
+    'orderDate': '25-Jul-2025',
+    'dealerName': 'Mahadev Cement Depot',
+    'productType': 'PPC',
+    'quantity': '15',
+    'orderStatus': 'Pending Approval',
+    'vehicleType': 'Mini Truck',
+    'preferredSource': 'Depot - Bangalore',
+    'expectedDeliveryDate': '31-Jul-2025',
+    'orderValue': '₹1,25,000',
+  },
+  {
+    'orderNumber': 'ORD-00125',
+    'orderDate': '26-Jul-2025',
+    'dealerName': 'Om Shakti Traders',
+    'productType': 'OPC 53 Grade',
+    'quantity': '25',
+    'orderStatus': 'Dispatched',
+    'vehicleType': 'Full Truck Load',
+    'preferredSource': 'Plant - Gujarat',
+    'expectedDeliveryDate': '29-Jul-2025',
+    'orderValue': '₹2,25,000',
+  },
+  {
+    'orderNumber': 'ORD-00126',
+    'orderDate': '26-Jul-2025',
+    'dealerName': 'Anand Cement & Hardware',
+    'productType': 'PPC',
+    'quantity': '10',
+    'orderStatus': 'Cancelled',
+    'vehicleType': 'Mini Truck',
+    'preferredSource': 'Depot - Jaipur',
+    'expectedDeliveryDate': '-',
+    'orderValue': '₹85,000',
+  },
+  {
+    'orderNumber': 'ORD-00127',
+    'orderDate': '27-Jul-2025',
+    'dealerName': 'Sai Krupa Cement House',
+    'productType': 'OPC 43 Grade',
+    'quantity': '18',
+    'orderStatus': 'Delivered',
+    'vehicleType': 'Full Truck Load',
+    'preferredSource': 'Plant - Nimbahera',
+    'expectedDeliveryDate': '28-Jul-2025',
+    'orderValue': '₹1,62,000',
+  },
+];
+
+
+
 List<Map<String, dynamic>> invoiceList = [
   {
     'orderId': 'ORD7583',
-    'customerName': 'Alice Wonderland',
+    'customerName': 'Shree Balaji Cement Traders',
     'orderDate': '20 April 2025',
     'totalAmount': 150.75,
     'status': 'Shipped',
@@ -208,7 +416,7 @@ List<Map<String, dynamic>> invoiceList = [
   },
   {
     'orderId': 'ORD9124',
-    'customerName': 'Bob The Builder',
+    'customerName': 'Vijay Construction Supplies',
     'orderDate': '21 April 2025',
     'totalAmount': 85.00,
     'status': 'Processing',
@@ -219,7 +427,7 @@ List<Map<String, dynamic>> invoiceList = [
   },
   {
     'orderId': 'ORD3357',
-    'customerName': 'Charlie Chaplin',
+    'customerName': 'Mahadev Cement Depot',
     'orderDate': '22 April 2025',
     'totalAmount': 210.50,
     'status': 'Delivered',
@@ -232,7 +440,7 @@ List<Map<String, dynamic>> invoiceList = [
   },
   {
     'orderId': 'ORD6219',
-    'customerName': 'Diana Prince',
+    'customerName': 'Rajeshwari Building Materials',
     'orderDate': '23 April 2025',
     'totalAmount': 99.99,
     'status': 'Shipped',
@@ -243,7 +451,7 @@ List<Map<String, dynamic>> invoiceList = [
   },
   {
     'orderId': 'ORD1088',
-    'customerName': 'Ethan Hunt',
+    'customerName': 'Anand Cement & Hardware',
     'orderDate': '24 April 2025',
     'totalAmount': 345.20,
     'status': 'Pending',
@@ -255,7 +463,7 @@ List<Map<String, dynamic>> invoiceList = [
   },
   {
     'orderId': 'ORD4471',
-    'customerName': 'Fiona Gallagher',
+    'customerName': 'Saraswati Cement Distributors',
     'orderDate': '24 April 2025',
     'totalAmount': 55.60,
     'status': 'Delivered',
@@ -266,7 +474,7 @@ List<Map<String, dynamic>> invoiceList = [
   },
   {
     'orderId': 'ORD8235',
-    'customerName': 'George Costanza',
+    'customerName': 'Om Shakti Traders',
     'orderDate': '25 April 2025',
     'totalAmount': 12.95,
     'status': 'Cancelled',
@@ -277,7 +485,7 @@ List<Map<String, dynamic>> invoiceList = [
   },
   {
     'orderId': 'ORD5501',
-    'customerName': 'Hermione Granger',
+    'customerName': 'Sai Krupa Cement House',
     'orderDate': '26 April 2025',
     'totalAmount': 180.00,
     'status': 'Processing',
@@ -289,7 +497,7 @@ List<Map<String, dynamic>> invoiceList = [
   },
   {
     'orderId': 'ORD2963',
-    'customerName': 'Indiana Jones',
+    'customerName': 'Durga Cement & Steels',
     'orderDate': '26 April 2025',
     'totalAmount': 450.80,
     'status': 'Shipped',
@@ -302,7 +510,7 @@ List<Map<String, dynamic>> invoiceList = [
   },
   {
     'orderId': 'ORD7140',
-    'customerName': 'Jack Sparrow',
+    'customerName': 'Ganesh Infrastructure Mart',
     'orderDate': '27 April 2025',
     'totalAmount': 75.30,
     'status': 'Pending Payment',

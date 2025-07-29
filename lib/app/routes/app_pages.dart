@@ -1,3 +1,6 @@
+import 'package:cement_industries_dealer/app/modules/cases/case_list/case_list_screen.dart';
+import 'package:cement_industries_dealer/app/modules/cases/create_case/create_case_screen.dart';
+import 'package:cement_industries_dealer/app/modules/notifications/notifications_screen.dart';
 import 'package:get/get.dart';
 import 'package:cement_industries_dealer/app/modules/account_statement/account_statement_screen.dart';
 import 'package:cement_industries_dealer/app/modules/home/home_screen.dart';
@@ -44,5 +47,8 @@ class AppPages {
     GetPage(name: _Paths.ORDER_PLACEMENT, page: () => const OrderPlacementScreen()),
     GetPage(name: _Paths.DELIVERY_INFORMATION, page: () => const DeliveryInformationScreen()),
     GetPage(name: _Paths.REVIEW_ORDER_SCREEN, page: () => const ReviewOrderScreen()),
+    GetPage(name: _Paths.CREATE_CASE_SCREEN, page: () => const CreateCaseScreen()),
+    GetPage(name: _Paths.CASE_LIST_SCREEN, page: () => const CaseListScreen()),
+    GetPage(name: _Paths.NOTIFICATIONS_SCREEN, page: () => const NotificationsScreen()),
   ];
 }

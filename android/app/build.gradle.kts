@@ -38,21 +38,21 @@ android {
     }
 
     signingConfigs {
-        create("release") {
-            keyAlias = keystoreProperties["keyAlias"] as String
-            keyPassword = keystoreProperties["keyPassword"] as String
-            storeFile = if (keystoreProperties["storeFile"] != null) {
-                file(keystoreProperties["storeFile"] as String)
-            } else {
-                null
-            }
-            storePassword = keystoreProperties["storePassword"] as String
-        }
+//        create("release") {
+//            keyAlias = keystoreProperties["keyAlias"] as String
+//            keyPassword = keystoreProperties["keyPassword"] as String
+//            storeFile = if (keystoreProperties["storeFile"] != null) {
+//                file(keystoreProperties["storeFile"] as String)
+//            } else {
+//                null
+//            }
+//            storePassword = keystoreProperties["storePassword"] as String
+//        }
     }
 
     buildTypes {
         release {
-            signingConfig = signingConfigs.getByName("release")
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
 }

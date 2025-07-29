@@ -20,6 +20,9 @@ abstract class Routes {
   static const ORDER_PLACEMENT = _Paths.ORDER_PLACEMENT;
   static const DELIVERY_INFORMATION = _Paths.DELIVERY_INFORMATION;
   static const REVIEW_ORDER_SCREEN = _Paths.REVIEW_ORDER_SCREEN;
+  static const CREATE_CASE_SCREEN = _Paths.CREATE_CASE_SCREEN;
+  static const CASE_LIST_SCREEN = _Paths.CASE_LIST_SCREEN;
+  static const NOTIFICATIONS_SCREEN = _Paths.NOTIFICATIONS_SCREEN;
 }
 
 abstract class _Paths {
@@ -42,4 +45,7 @@ abstract class _Paths {
   static const ORDER_PLACEMENT = '/order_placement';
   static const DELIVERY_INFORMATION = '/delivery_information';
   static const REVIEW_ORDER_SCREEN = '/review_order_screen';
+  static const CREATE_CASE_SCREEN = '/create_case_screen';
+  static const CASE_LIST_SCREEN = '/case_list_screen';
+  static const NOTIFICATIONS_SCREEN = '/notifications_screen';
 }
