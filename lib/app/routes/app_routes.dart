@@ -23,6 +23,7 @@ abstract class Routes {
   static const CREATE_CASE_SCREEN = _Paths.CREATE_CASE_SCREEN;
   static const CASE_LIST_SCREEN = _Paths.CASE_LIST_SCREEN;
   static const NOTIFICATIONS_SCREEN = _Paths.NOTIFICATIONS_SCREEN;
+  static const ORDER_DETAILS_SCREEN = _Paths.ORDER_DETAILS_SCREEN;
 }
 
 abstract class _Paths {
@@ -48,4 +49,5 @@ abstract class _Paths {
   static const CREATE_CASE_SCREEN = '/create_case_screen';
   static const CASE_LIST_SCREEN = '/case_list_screen';
   static const NOTIFICATIONS_SCREEN = '/notifications_screen';
+  static const ORDER_DETAILS_SCREEN = '/order_details_screen';
 }

@@ -1,6 +1,8 @@
+import 'package:cement_industries_dealer/app/routes/app_pages.dart';
+import 'package:cement_industries_dealer/extensions/extension_functions.dart';
 import 'package:cement_industries_dealer/utility/sample_data.dart';
-import 'package:cement_industries_dealer/utility/widget_util.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../constant/local_colors.dart';
 
@@ -41,173 +43,72 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   Widget notificationItem(Map<String, dynamic> orderData) {
     return Container(
       margin: EdgeInsets.only(bottom: 16),
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       decoration: BoxDecoration(
         color: whiteColor,
         borderRadius: BorderRadius.all(Radius.circular(10)),
         boxShadow: [
-          BoxShadow(
-            color: blackColor.withAlpha(40),
-            offset: const Offset(1.0, 1.0),
-            blurRadius: 5,
-            spreadRadius: 1.0,
-          ),
+          BoxShadow(color: blackColor.withAlpha(40),
+              offset: const Offset(1.0, 1.0),
+              blurRadius: 5,
+              spreadRadius: 1.0)
         ],
       ),
-      child: Stack(
+      child: Column(
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Order Number and Date
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    orderData['orderNumber'] ?? '',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: textColor,
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Order Number and Date
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Order ID: ",
+                            style: TextStyle(
+                                color: textColor.withValues(alpha: 0.6),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          TextSpan(
+                            text: "${orderData['orderNumber']}",
+                            style: TextStyle(color: textColor,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  horizontalSpace(12),
-                  Text(
-                    orderData['orderDate'] ?? '',
-                    style: TextStyle(fontSize: 14, color: Colors.grey[600]),
-                  ),
-                ],
-              ),
-              verticalSpace(12),
-
-              // Dealer Name
-              Row(
-                children: [
-                  Text(
-                    'Dealer: ',
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
-                  ),
-                  Expanded(
-                    child: Text(
-                      orderData['dealerName'] ?? '',
-                      style: TextStyle(fontSize: 14),
+                    Text(
+                      orderData['orderDate'] ?? '',
+                      style: TextStyle(color: textColor.withValues(
+                          alpha: 0.6),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500),
                     ),
-                  ),
-                ],
-              ),
-              verticalSpace(6),
-
-              // Product Type and Quantity
-              Row(
-                children: [
-                  Text(
-                    'Product: ',
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
-                  ),
-                  Text(
-                    '${orderData['productType'] ?? ''} (${orderData['quantity']} MT)',
-                    style: TextStyle(fontSize: 14),
-                  ),
-                ],
-              ),
-              verticalSpace(6),
-
-              // Vehicle Type and Source
-              Row(
-                children: [
-                  Text(
-                    'Vehicle: ',
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
-                  ),
-                  Text(
-                    orderData['vehicleType'] ?? '',
-                    style: TextStyle(fontSize: 14),
-                  ),
-                ],
-              ),
-              verticalSpace(6),
-
-              Row(
-                children: [
-                  Text(
-                    'Source: ',
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
-                  ),
-                  Expanded(
-                    child: Text(
-                      orderData['preferredSource'] ?? '',
-                      style: TextStyle(fontSize: 14),
-                    ),
-                  ),
-                ],
-              ),
-              verticalSpace(6),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Expected Delivery:',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 12,
-                        ),
-                      ),
-                      Text(
-                        orderData['expectedDeliveryDate'] ?? '',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Order Value:',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 12,
-                        ),
-                      ),
-                      Text(
-                        orderData['orderValue'] ?? '',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.green[700],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
-
-          Positioned(
-            top: 0,
-            right: 0,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: getOrderStatusColor(orderData['orderStatus'] ?? ''),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                (orderData['orderStatus'] ?? '').toUpperCase(),
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 9,
-                  fontWeight: FontWeight.bold,
+                  ],
                 ),
-              ),
+                SizedBox(height: 5),
+                Text(
+                  "${orderData['dealerName']} has requested to place an order. Please click on this notification to view the details.",
+                  style: TextStyle(color: textColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600),
+                ),
+              ],
             ),
           ),
+
         ],
       ),
-    );
+    ).onClick(() {
+      //
+      Get.toNamed(Routes.ORDER_DETAILS_SCREEN, arguments: orderData);
+    });
   }
 }
