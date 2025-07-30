@@ -190,7 +190,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 children: [
                   Icon(Icons.create, size: 28),
                   horizontalSpace(15),
-                  Text("Create Case", style: TextStyle(color: textColor, fontSize: 18, fontWeight: FontWeight.w600)),
+                  Text("Service Request", style: TextStyle(color: textColor, fontSize: 18, fontWeight: FontWeight.w600)),
                 ],
               ),
             ).onClick(() {
@@ -205,7 +205,7 @@ class HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 children: [
                   Icon(Icons.list, size: 28),
                   horizontalSpace(15),
-                  Text("View Cases", style: TextStyle(color: textColor, fontSize: 18, fontWeight: FontWeight.w600)),
+                  Text("View Service Request", style: TextStyle(color: textColor, fontSize: 18, fontWeight: FontWeight.w600)),
                 ],
               ),
             ).onClick(() {

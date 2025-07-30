@@ -17,7 +17,7 @@ class _CaseListScreenState extends State<CaseListScreen> {
         backgroundColor: backgroundColor,
         scrolledUnderElevation: 0,
         title: Text(
-          "All Cases",
+          "Service Requests",
           style: TextStyle(
             color: textColor,
             fontSize: 18,

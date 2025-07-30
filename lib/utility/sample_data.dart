@@ -348,11 +348,12 @@ List<Map<String, dynamic>> orders = [
     'preferredSource': 'Plant - Nimbahera',
     'expectedDeliveryDate': '30-Jul-2025',
     'orderValue': '₹1,80,000',
+    'city': 'Pune',
   },
   {
     'orderNumber': 'ORD-00124',
     'orderDate': '25-Jul-2025',
-    'dealerName': 'Mahadev Cement Depot',
+    'dealerName': 'Mahadeva Cement Depot',
     'productType': 'PPC',
     'quantity': '15',
     'orderStatus': 'Pending Approval',
@@ -360,6 +361,9 @@ List<Map<String, dynamic>> orders = [
     'preferredSource': 'Depot - Bangalore',
     'expectedDeliveryDate': '31-Jul-2025',
     'orderValue': '₹1,25,000',
+    'city': 'Mumbai',
+    'areaOffice': 'Area Office - Mumbai',
+    'phoneNo': '9876543210'
   },
   {
     'orderNumber': 'ORD-00125',
@@ -372,6 +376,7 @@ List<Map<String, dynamic>> orders = [
     'preferredSource': 'Plant - Gujarat',
     'expectedDeliveryDate': '29-Jul-2025',
     'orderValue': '₹2,25,000',
+    'city': 'Ahmedabad',
   },
   {
     'orderNumber': 'ORD-00126',
@@ -384,6 +389,7 @@ List<Map<String, dynamic>> orders = [
     'preferredSource': 'Depot - Jaipur',
     'expectedDeliveryDate': '-',
     'orderValue': '₹85,000',
+    'city': 'Jaipur',
   },
   {
     'orderNumber': 'ORD-00127',
@@ -396,6 +402,7 @@ List<Map<String, dynamic>> orders = [
     'preferredSource': 'Plant - Nimbahera',
     'expectedDeliveryDate': '28-Jul-2025',
     'orderValue': '₹1,62,000',
+    'city': 'Pune',
   },
 ];
 

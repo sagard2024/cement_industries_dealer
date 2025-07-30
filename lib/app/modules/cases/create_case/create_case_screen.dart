@@ -42,7 +42,7 @@ class _CreateCaseScreenState extends State<CreateCaseScreen> {
         backgroundColor: backgroundColor,
         scrolledUnderElevation: 0,
         title: Text(
-          "Create Case",
+          "Create Service Request",
           style: TextStyle(
             color: textColor,
             fontSize: 18,
