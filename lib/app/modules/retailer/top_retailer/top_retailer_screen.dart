@@ -21,7 +21,14 @@ class TopRetailerScreenState extends State<TopRetailerScreen> {
       appBar: AppBar(
         backgroundColor: backgroundColor,
         scrolledUnderElevation: 0,
-        title: Text("Top 5 Retailers", style: TextStyle(color: textColor, fontSize: 18, fontWeight: FontWeight.w600)),
+        title: Text(
+          "Top 5 Retailers",
+          style: TextStyle(
+            color: textColor,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ),
       body: ListView(
         children: [
@@ -39,7 +46,14 @@ class TopRetailerScreenState extends State<TopRetailerScreen> {
               decoration: BoxDecoration(
                 color: whiteColor,
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                boxShadow: [BoxShadow(color: blackColor.withAlpha(40), offset: const Offset(1.0, 1.0), blurRadius: 5, spreadRadius: 1.0)],
+                boxShadow: [
+                  BoxShadow(
+                    color: blackColor.withAlpha(40),
+                    offset: const Offset(1.0, 1.0),
+                    blurRadius: 5,
+                    spreadRadius: 1.0,
+                  ),
+                ],
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,17 +63,32 @@ class TopRetailerScreenState extends State<TopRetailerScreen> {
                       children: [
                         TextSpan(
                           text: "Sales Order id: ",
-                          style: TextStyle(color: textColor.withValues(alpha: 0.6), fontSize: 14, fontWeight: FontWeight.w500),
+                          style: TextStyle(
+                            color: textColor.withValues(alpha: 0.6),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                         TextSpan(
                           text: "${e["salesOrderId"]}",
-                          style: TextStyle(color: textColor, fontSize: 14, fontWeight: FontWeight.w600),
+                          style: TextStyle(
+                            color: textColor,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ],
                     ),
                   ),
                   verticalSpace(6),
-                  Text("${e["retailerName"]}", style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.w600)),
+                  Text(
+                    "${e["retailerName"]}",
+                    style: TextStyle(
+                      color: textColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                   verticalSpace(15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -68,11 +97,19 @@ class TopRetailerScreenState extends State<TopRetailerScreen> {
                     children: [
                       Text(
                         'Last Month',
-                        style: TextStyle(color: textColor.withValues(alpha: 0.5), fontSize: 13, fontWeight: FontWeight.w400),
+                        style: TextStyle(
+                          color: textColor.withValues(alpha: 0.5),
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                       Text(
                         'This Month',
-                        style: TextStyle(color: textColor.withValues(alpha: 0.5), fontSize: 13, fontWeight: FontWeight.w400),
+                        style: TextStyle(
+                          color: textColor.withValues(alpha: 0.5),
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ],
                   ),
@@ -104,7 +141,10 @@ class TopRetailerScreenState extends State<TopRetailerScreen> {
                                 ),
                                 child: SvgPicture.asset(
                                   LocaleKeys.ic_contractor_retailer_back,
-                                  color: whiteColor,
+                                  colorFilter: ColorFilter.mode(
+                                    whiteColor,
+                                    BlendMode.srcIn,
+                                  ),
                                   fit: BoxFit.fill,
                                   width: Get.width,
                                 ),
@@ -146,7 +186,10 @@ class TopRetailerScreenState extends State<TopRetailerScreen> {
                       Container(
                         width: 4,
                         height: 30,
-                        decoration: BoxDecoration(color: themeColor, borderRadius: BorderRadius.all(Radius.circular(2))),
+                        decoration: BoxDecoration(
+                          color: themeColor,
+                          borderRadius: BorderRadius.all(Radius.circular(2)),
+                        ),
                       ),
                       horizontalSpace(3),
                       Flexible(

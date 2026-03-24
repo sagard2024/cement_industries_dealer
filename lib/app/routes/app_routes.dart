@@ -24,6 +24,9 @@ abstract class Routes {
   static const CASE_LIST_SCREEN = _Paths.CASE_LIST_SCREEN;
   static const NOTIFICATIONS_SCREEN = _Paths.NOTIFICATIONS_SCREEN;
   static const ORDER_DETAILS_SCREEN = _Paths.ORDER_DETAILS_SCREEN;
+  static const VOUCHER_LIST_SCREEN = _Paths.VOUCHER_LIST_SCREEN;
+  static const REDEEM_POINTS_SCREEN = _Paths.REDEEM_POINTS_SCREEN;
+  static const PAYMENT_SUMMARY_SCREEN = _Paths.PAYMENT_SUMMARY_SCREEN;
 }
 
 abstract class _Paths {
@@ -50,4 +53,7 @@ abstract class _Paths {
   static const CASE_LIST_SCREEN = '/case_list_screen';
   static const NOTIFICATIONS_SCREEN = '/notifications_screen';
   static const ORDER_DETAILS_SCREEN = '/order_details_screen';
+  static const VOUCHER_LIST_SCREEN = '/voucher_list_screen';
+  static const REDEEM_POINTS_SCREEN = '/redeem_points_screen';
+  static const PAYMENT_SUMMARY_SCREEN = '/payment_summary_screen';
 }

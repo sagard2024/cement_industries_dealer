@@ -1,12 +1,7 @@
 import 'package:cement_industries_dealer/app/constant/local_colors.dart';
-import 'package:cement_industries_dealer/app/routes/app_pages.dart';
-import 'package:cement_industries_dealer/extensions/extension_functions.dart';
-import 'package:cement_industries_dealer/generated/locales.dart';
-import 'package:cement_industries_dealer/utility/sample_data.dart';
 import 'package:cement_industries_dealer/utility/widget_util.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 class CreateCaseScreen extends StatefulWidget {
   const CreateCaseScreen({super.key});
@@ -16,33 +11,95 @@ class CreateCaseScreen extends StatefulWidget {
 }
 
 class _CreateCaseScreenState extends State<CreateCaseScreen> {
-  DateTime? selectedDate;
-  TextEditingController dateController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _remarksController = TextEditingController();
+  late final String _caseNumber;
 
-  Future<void> _selectDate(TextEditingController dateController) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: selectedDate ?? DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-    );
-    if (picked != null && picked != selectedDate) {
-      setState(() {
-        final formatter = DateFormat('yyyy-MM-dd');
-        final formatted = formatter.format(picked);
-        dateController.text = formatted.toString().split(" ")[0];
-      });
-    }
+  String? _caseType;
+  String? _caseCategory;
+  String? _subCategory;
+  String? _priority;
+  String? _status;
+  String? _source;
+
+  final List<String> _caseTypes = [
+    "Service",
+    "Complaint",
+    "Inquiry",
+    "Technical Support",
+  ];
+  final List<String> _categories = [
+    "Product",
+    "Delivery",
+    "Quality",
+    "Billing",
+    "Scheme",
+    "Others",
+  ];
+  final List<String> _priorities = ["High", "Medium", "Low"];
+  final List<String> _statuses = ["New", "In Progress", "Resolved", "Closed"];
+  final List<String> _sources = [
+    "App",
+    "Call",
+    "WhatsApp",
+    "Email",
+    "Dealer Portal",
+  ];
+
+  final Map<String, List<String>> _subCategoryMap = {
+    "Product": ["Availability", "Specification", "Packaging", "Replacement"],
+    "Delivery": [
+      "Delay in delivery",
+      "Partial Delivery",
+      "Wrong Address",
+      "Tracking Issue",
+    ],
+    "Quality": [
+      "Cracks in structure",
+      "Material Quality",
+      "Batch Mismatch",
+      "Expiry Concern",
+    ],
+    "Billing": [
+      "Invoice mismatch",
+      "Wrong Amount",
+      "Payment Not Updated",
+      "Tax Query",
+    ],
+    "Scheme": [
+      "Scheme eligibility",
+      "Points Not Credited",
+      "Offer Clarification",
+      "Redemption Issue",
+    ],
+    "Others": ["General Query", "Feedback", "Escalation", "Other"],
+  };
+
+  @override
+  void initState() {
+    super.initState();
+    final args = Get.arguments;
+    _caseNumber =
+        (args is Map && args["caseNumber"] is String)
+            ? args["caseNumber"] as String
+            : "C-1006";
+  }
+
+  @override
+  void dispose() {
+    _remarksController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: backgroundColor,
         scrolledUnderElevation: 0,
         title: Text(
-          "Create Service Request",
+          "Add Support Case",
           style: TextStyle(
             color: textColor,
             fontSize: 18,
@@ -50,268 +107,228 @@ class _CreateCaseScreenState extends State<CreateCaseScreen> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
+      body: Form(
+        key: _formKey,
+        child: ListView(
+          padding: const EdgeInsets.only(bottom: 20),
           children: [
+            verticalSpace(15),
+            _label("Case Number (Auto)"),
             Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Customer Name /  Dealer Name',
-                    style: TextStyle(fontSize: 14),
-                  ),
-                  verticalSpace(8),
-                  TextField(
-                    decoration: InputDecoration(
-                      //labelText: 'Customer Name /  Dealer Name',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Contact Number / Email ID',
-                    style: TextStyle(fontSize: 14),
-                  ),
-                  verticalSpace(8),
-                  TextField(
-                    decoration: InputDecoration(
-                      //labelText: 'Contact Number / Email ID',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            // product name dropdown
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Product Name', style: TextStyle(fontSize: 14)),
-                  verticalSpace(8),
-                  DropdownButtonFormField<String>(
-                    decoration: InputDecoration(
-                      //labelText: 'Product Name',
-                      border: OutlineInputBorder(),
-                    ),
-                    items:
-                        allProducts.map((product) {
-                          return DropdownMenuItem<String>(
-                            value: product['name'],
-                            child: Text(product['name']),
-                          );
-                        }).toList(),
-                    onChanged: (String? newValue) {
-                      // Handle dropdown value change
-                    },
-                  ),
-                ],
-              ),
-            ),
-            // case type dropdown list
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Case Type', style: TextStyle(fontSize: 14)),
-                  verticalSpace(8),
-                  DropdownButtonFormField<String>(
-                    decoration: InputDecoration(
-                      //labelText: 'Case Type',
-                      border: OutlineInputBorder(),
-                    ),
-                    items:
-                        caseTypes.map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                    onChanged: (String? newValue) {
-                      // Handle dropdown value change
-                    },
-                  ),
-                ],
-              ),
-            ),
-
-            // datepicker
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Date of Incident / Complaint Raised Date',
-                    style: TextStyle(fontSize: 14),
-                  ),
-                  verticalSpace(8),
-                  TextField(
-                    decoration: InputDecoration(
-                      //labelText: 'Date of Incident / Complaint Raised Date',
-                      border: OutlineInputBorder(),
-                    ),
-                    onTap: () {
-                      _selectDate(dateController);
-                    },
-                    controller: dateController,
-                  ),
-                ],
-              ),
-            ),
-
-            ///
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Site Address / Delivery Location',
-                    style: TextStyle(fontSize: 14),
-                  ),
-                  verticalSpace(8),
-                  TextField(
-                    decoration: InputDecoration(
-                      // labelText: 'Site Address / Delivery Location',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Invoice Number / Delivery Challan (DC) Number',
-                    style: TextStyle(fontSize: 14),
-                  ),
-                  verticalSpace(8),
-                  TextField(
-                    decoration: InputDecoration(
-                      // labelText: 'Invoice Number / Delivery Challan (DC) Number',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Description of Issue', style: TextStyle(fontSize: 14)),
-                  verticalSpace(8),
-                  TextField(
-                    decoration: InputDecoration(
-                      //labelText: 'Description of Issue',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Photos / Document Upload (if any)',
-                    style: TextStyle(fontSize: 14),
-                  ),
-                  SizedBox(height: 8),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: themeColor),
-                            borderRadius: BorderRadius.all(Radius.circular(25)),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "Upload Photo",
-                              style: TextStyle(
-                                color: themeColor,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: LocaleKeys.hanken,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                        ).onClick(() {}),
-                      ),
-                      horizontalSpace(10),
-                      Expanded(
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: themeColor),
-                            borderRadius: BorderRadius.all(Radius.circular(25)),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "Upload Document",
-                              style: TextStyle(
-                                color: themeColor,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: LocaleKeys.hanken,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                        ).onClick(() {}),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: themeColor,
-                  borderRadius: BorderRadius.all(Radius.circular(25)),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
+              child: TextFormField(
+                initialValue: _caseNumber,
+                readOnly: true,
+                style: TextStyle(
+                  color: textColor,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
                 ),
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                margin: const EdgeInsets.symmetric(horizontal: 15),
-                child: Center(
-                  child: Text(
-                    "Submit",
-                    style: TextStyle(
-                      color: whiteColor,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: LocaleKeys.hanken,
-                      fontSize: 16,
-                    ),
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  filled: true,
+                  fillColor: cardBackColor,
+                ),
+              ),
+            ),
+            _dropdownField(
+              label: "Case Type",
+              hint: "Select case type",
+              value: _caseType,
+              items: _caseTypes,
+              onChanged: (v) => setState(() => _caseType = v),
+            ),
+            _dropdownField(
+              label: "Case Category",
+              hint: "Select case category",
+              value: _caseCategory,
+              items: _categories,
+              onChanged:
+                  (v) => setState(() {
+                    _caseCategory = v;
+                    _subCategory = null;
+                  }),
+            ),
+            _dropdownField(
+              label: "Sub-Category",
+              hint:
+                  _caseCategory == null
+                      ? "Select category first"
+                      : "Select sub-category",
+              value: _subCategory,
+              items:
+                  _caseCategory == null
+                      ? const []
+                      : (_subCategoryMap[_caseCategory] ?? const []),
+              onChanged: (v) => setState(() => _subCategory = v),
+              validator: (value) {
+                if (_caseCategory == null) {
+                  return "Please select case category first";
+                }
+                if (value == null || value.isEmpty) {
+                  return "Please select sub-category";
+                }
+                return null;
+              },
+            ),
+            _dropdownField(
+              label: "Priority",
+              hint: "Select priority",
+              value: _priority,
+              items: _priorities,
+              onChanged: (v) => setState(() => _priority = v),
+            ),
+            _dropdownField(
+              label: "Status",
+              hint: "Select status",
+              value: _status,
+              items: _statuses,
+              onChanged: (v) => setState(() => _status = v),
+            ),
+            _dropdownField(
+              label: "Source",
+              hint: "Select source",
+              value: _source,
+              items: _sources,
+              onChanged: (v) => setState(() => _source = v),
+            ),
+            _label("Remarks"),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
+              child: TextFormField(
+                controller: _remarksController,
+                minLines: 3,
+                maxLines: 5,
+                style: TextStyle(
+                  color: textColor,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  hintText: "Enter remarks",
+                  hintStyle: TextStyle(
+                    color: textColor.withValues(alpha: 0.5),
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-              ).onClick(() {
-                // Handle submit button press
-                Get.offNamed(Routes.CASE_LIST_SCREEN);
-              }),
+                validator:
+                    (value) =>
+                        value == null || value.trim().isEmpty
+                            ? "Please enter remarks"
+                            : null,
+              ),
             ),
           ],
         ),
       ),
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
+          child: GestureDetector(
+            onTap: _onSave,
+            child: Container(
+              decoration: BoxDecoration(
+                color: themeColor,
+                borderRadius: BorderRadius.circular(5),
+              ),
+              padding: const EdgeInsets.all(12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Save",
+                    style: TextStyle(
+                      color: whiteColor,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _label(String text) => Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 15),
+    child: Text(
+      text,
+      style: TextStyle(
+        color: textColor,
+        fontSize: 18,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
+  );
+
+  Widget _dropdownField({
+    required String label,
+    required String hint,
+    required String? value,
+    required List<String> items,
+    required ValueChanged<String?> onChanged,
+    String? Function(String?)? validator,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _label(label),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
+          child: DropdownButtonFormField<String>(
+            initialValue: value,
+            isExpanded: true,
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              hintText: hint,
+              hintStyle: TextStyle(
+                color: textColor.withValues(alpha: 0.5),
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            validator:
+                validator ??
+                (selected) =>
+                    selected == null || selected.isEmpty
+                        ? "Please select $label"
+                        : null,
+            items:
+                items
+                    .map(
+                      (item) => DropdownMenuItem<String>(
+                        value: item,
+                        child: Text(item),
+                      ),
+                    )
+                    .toList(),
+            onChanged: onChanged,
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _onSave() {
+    if (!(_formKey.currentState?.validate() ?? false)) {
+      return;
+    }
+    Get.back(
+      result: {
+        "caseNumber": _caseNumber,
+        "caseType": _caseType ?? "",
+        "caseCategory": _caseCategory ?? "",
+        "subCategory": _subCategory ?? "",
+        "priority": _priority ?? "",
+        "status": _status ?? "",
+        "source": _source ?? "",
+        "remarks": _remarksController.text.trim(),
+      },
     );
   }
 }
